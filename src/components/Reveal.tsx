@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, CSSProperties } from "react";
 import { motion, useInView } from "framer-motion";
 
 interface RevealProps {
@@ -55,6 +55,7 @@ export default function Reveal({
 interface WordRevealProps {
   text: string;
   className?: string;
+  style?: CSSProperties;
   stagger?: number;
   delay?: number;
 }
@@ -62,6 +63,7 @@ interface WordRevealProps {
 export function WordReveal({
   text,
   className = "",
+  style,
   stagger = 0.05,
   delay = 0,
 }: WordRevealProps) {
@@ -70,19 +72,23 @@ export function WordReveal({
   const words = text.split(" ");
 
   return (
-    <motion.div ref={ref} className={className} style={{ display: "flex", flexWrap: "wrap" }}>
+    <motion.div
+      ref={ref}
+      className={className}
+      style={{ display: "flex", flexWrap: "wrap", ...style }}
+    >
       {words.map((word, i) => (
-        <span key={i} className="inline-block overflow-hidden" style={{ marginRight: "0.35em" }}>
+        <span key={i} className="inline-block overflow-hidden" style={{ marginRight: "0.3em" }}>
           <motion.span
             className="inline-block"
-            initial={{ y: "100%", opacity: 0 }}
+            initial={{ y: "110%", opacity: 0 }}
             animate={
               isInView
                 ? { y: "0%", opacity: 1 }
-                : { y: "100%", opacity: 0 }
+                : { y: "110%", opacity: 0 }
             }
             transition={{
-              duration: 0.8,
+              duration: 1,
               delay: delay + i * stagger,
               ease: [0.16, 1, 0.3, 1],
             }}
@@ -127,7 +133,7 @@ export function LineReveal({
               : { opacity: 0, y: 20 }
           }
           transition={{
-            duration: 0.8,
+            duration: 1,
             delay: delay + i * stagger,
             ease: [0.16, 1, 0.3, 1],
           }}

@@ -1,49 +1,92 @@
 "use client";
 
-import Reveal from "./Reveal";
 import Link from "next/link";
+import Reveal from "./Reveal";
 
 const footerLinks = [
-  { label: "INSTAGRAM", href: "#" },
-  { label: "CONTACT", href: "#" },
-  { label: "PRIVACY", href: "#" },
+  { label: "Shop", href: "/#collection" },
+  { label: "Our House", href: "/#the-house" },
+  { label: "Contact", href: "#" },
+  { label: "Instagram", href: "#" },
 ];
 
 export default function Footer() {
   return (
-    <footer className="py-32 border-t border-subtle text-center">
-      <div className="max-w-[1440px] mx-auto px-6 md:px-12">
+    <footer className="border-t border-subtle bg-noir">
+      <div className="max-w-[1440px] mx-auto px-6 md:px-12 py-24 md:py-32">
         <Reveal>
-          <span className="font-cormorant text-xl tracking-[0.25em] text-cream font-light">
-            MAISON NOIR
-          </span>
-        </Reveal>
-
-        <Reveal delay={0.1}>
-          <p className="mt-6 font-cormorant italic text-cream-muted">
-            A small house of perfume.
-          </p>
-        </Reveal>
-
-        <Reveal delay={0.2}>
-          <div className="mt-12 flex gap-12 justify-center flex-wrap">
-            {footerLinks.map((link) => (
-              <Link
-                key={link.label}
-                href={link.href}
-                className="font-inter text-[11px] tracking-[0.3em] uppercase text-cream-muted hover:text-gold transition-colors duration-300 font-light"
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-6">
+            {/* Brand */}
+            <div className="md:col-span-6">
+              <span
+                className="font-cormorant text-cream/90 font-light block"
+                style={{ fontSize: "clamp(1.5rem, 3vw, 2.5rem)", letterSpacing: "0.15em" }}
               >
-                {link.label}
-              </Link>
-            ))}
+                MAISON NOIR
+              </span>
+              <p
+                className="mt-6 font-cormorant italic text-cream-muted/50 max-w-xs leading-relaxed"
+                style={{ fontSize: "clamp(0.875rem, 1.2vw, 1rem)" }}
+              >
+                A small house of perfume.
+                <br />
+                Composed in silence.
+              </p>
+            </div>
+
+            {/* Links */}
+            <div className="md:col-span-3 md:col-start-8">
+              <span className="eyebrow text-cream-muted/40 block mb-8">NAVIGATION</span>
+              <div className="flex flex-col gap-5">
+                {footerLinks.map((link) => (
+                  <Link
+                    key={link.label}
+                    href={link.href}
+                    className="font-inter text-cream-muted/60 hover:text-cream transition-colors duration-300 font-light"
+                    style={{ fontSize: "13px", letterSpacing: "0.02em" }}
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            {/* Info */}
+            <div className="md:col-span-2 md:col-start-11">
+              <span className="eyebrow text-cream-muted/40 block mb-8">INFO</span>
+              <div className="flex flex-col gap-5">
+                <span
+                  className="font-inter text-cream-muted/60 font-light"
+                  style={{ fontSize: "13px", letterSpacing: "0.02em" }}
+                >
+                  Privacy
+                </span>
+                <span
+                  className="font-inter text-cream-muted/60 font-light"
+                  style={{ fontSize: "13px", letterSpacing: "0.02em" }}
+                >
+                  Terms
+                </span>
+              </div>
+            </div>
           </div>
         </Reveal>
 
-        <Reveal delay={0.3}>
-          <p className="mt-24 text-[10px] text-cream-muted/50 tracking-wider font-inter font-light">
-            &copy; 2025 MAISON NOIR. COMPOSED IN SMALL BATCHES.
-          </p>
-        </Reveal>
+        {/* Bottom bar */}
+        <div className="mt-24 pt-8 border-t border-subtle flex flex-col sm:flex-row items-center justify-between gap-4">
+          <span
+            className="font-inter text-cream-muted/30 font-light"
+            style={{ fontSize: "11px", letterSpacing: "0.05em" }}
+          >
+            © 2025 MAISON NOIR. All rights reserved.
+          </span>
+          <span
+            className="font-inter text-cream-muted/20 font-light"
+            style={{ fontSize: "10px", letterSpacing: "0.08em" }}
+          >
+            CRAFTED WITH INTENTION
+          </span>
+        </div>
       </div>
     </footer>
   );

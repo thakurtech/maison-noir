@@ -13,8 +13,9 @@ export default function TheHouse() {
 
   const para2Lines = [
     "Each composition is made in small batches",
-    "in our atelier. We use ingredients that take time.",
-    "We move slowly because there is no other way.",
+    "in our atelier. We use ingredients",
+    "that take time. We move slowly",
+    "because there is no other way.",
   ];
 
   return (
@@ -27,7 +28,7 @@ export default function TheHouse() {
         <div className="col-span-12 md:col-span-2">
           <div className="md:sticky md:top-48">
             <Reveal>
-              <span className="eyebrow">THE HOUSE</span>
+              <span className="eyebrow text-gold/80">THE HOUSE</span>
             </Reveal>
           </div>
         </div>
@@ -36,16 +37,28 @@ export default function TheHouse() {
         <div className="col-span-12 md:col-span-7 md:col-start-5 mt-8 md:mt-0">
           <LineReveal
             lines={para1Lines}
-            className="font-cormorant text-2xl sm:text-3xl md:text-4xl font-light leading-[1.5] text-cream"
-            stagger={0.1}
+            className="font-cormorant font-light text-cream"
+            lineClassName="leading-[1.6]"
+            stagger={0.12}
           />
 
-          <LineReveal
-            lines={para2Lines}
-            className="font-cormorant text-2xl sm:text-3xl md:text-4xl font-light leading-[1.5] text-cream mt-12"
-            stagger={0.1}
-            delay={0.3}
-          />
+          <div className="mt-16">
+            <LineReveal
+              lines={para2Lines}
+              className="font-cormorant font-light text-cream"
+              lineClassName="leading-[1.6]"
+              stagger={0.12}
+              delay={0.3}
+            />
+          </div>
+
+          {/* Signature line */}
+          <Reveal delay={0.8}>
+            <div className="mt-20 flex items-center gap-6">
+              <div className="w-12 h-[1px] bg-gold/30" />
+              <span className="eyebrow text-cream-muted/60">EST. 2025</span>
+            </div>
+          </Reveal>
         </div>
       </div>
     </section>

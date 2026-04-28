@@ -6,6 +6,7 @@ export type Product = {
   notes: { top: string; heart: string; base: string };
   description: string;
   size: string;
+  image: string;
 };
 
 export const products: Product[] = [
@@ -22,6 +23,7 @@ export const products: Product[] = [
     description:
       "A meditation in resin and warmth. Composed slowly, worn quietly.",
     size: "50ml — Eau de Parfum",
+    image: "/images/noir-01.png",
   },
   {
     slug: "noir-02",
@@ -36,6 +38,7 @@ export const products: Product[] = [
     description:
       "Cool, mineral, almost architectural. For mornings that demand restraint.",
     size: "50ml — Eau de Parfum",
+    image: "/images/noir-02.png",
   },
   {
     slug: "noir-03",
@@ -50,6 +53,7 @@ export const products: Product[] = [
     description:
       "Smoke and petals. The last hour of a long evening.",
     size: "50ml — Eau de Parfum",
+    image: "/images/noir-03.png",
   },
 ];
 

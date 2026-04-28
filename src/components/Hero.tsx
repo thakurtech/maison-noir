@@ -2,14 +2,13 @@
 
 import { useRef, useEffect, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import CSSPerfumeBottle from "./CSSPerfumeBottle";
+import Image from "next/image";
 import MagneticButton from "./MagneticButton";
 import { WordReveal } from "./Reveal";
 import Link from "next/link";
 
 export default function Hero() {
   const heroRef = useRef<HTMLDivElement>(null);
-  const bottleRef = useRef<HTMLDivElement>(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
   const { scrollYProgress } = useScroll({
@@ -17,10 +16,10 @@ export default function Hero() {
     offset: ["start start", "end start"],
   });
 
-  // Map scroll to bottle rotation
-  const bottleRotateY = useTransform(scrollYProgress, [0, 1], [0, 180]);
+  const bottleY = useTransform(scrollYProgress, [0, 1], [0, 150]);
+  const bottleScale = useTransform(scrollYProgress, [0, 1], [1, 0.85]);
+  const bottleOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
-  // Mouse-follow tilt for bottle
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       if (!heroRef.current) return;
@@ -28,12 +27,9 @@ export default function Hero() {
       const centerX = rect.left + rect.width / 2;
       const centerY = rect.top + rect.height / 2;
 
-      const x = ((e.clientX - centerX) / (rect.width / 2)) * 15;
-      const y = ((e.clientY - centerY) / (rect.height / 2)) * -15;
-
       setMousePos({
-        x: Math.max(-15, Math.min(15, x)),
-        y: Math.max(-15, Math.min(15, y)),
+        x: ((e.clientX - centerX) / (rect.width / 2)) * 8,
+        y: ((e.clientY - centerY) / (rect.height / 2)) * -8,
       });
     };
 
@@ -46,7 +42,7 @@ export default function Hero() {
       ref={heroRef}
       className="relative h-screen overflow-hidden bg-noir"
     >
-      {/* ═══ Background Glow Blobs ═══ */}
+      {/* Background Glow Blobs */}
       <div
         className="absolute opacity-15"
         style={{
@@ -90,15 +86,15 @@ export default function Hero() {
         }}
       />
 
-      {/* ═══ Film Grain ═══ */}
+      {/* Film Grain */}
       <div className="film-grain" />
 
-      {/* ═══ Content Grid ═══ */}
+      {/* Content Grid */}
       <div className="relative z-10 grid grid-cols-1 md:grid-cols-12 items-center h-full max-w-[1440px] mx-auto px-6 md:px-12">
         {/* Left: Text */}
-        <div className="md:col-span-7 flex flex-col justify-center pt-20 md:pt-0">
+        <div className="md:col-span-6 lg:col-span-7 flex flex-col justify-center pt-20 md:pt-0">
           <motion.span
-            className="eyebrow"
+            className="eyebrow text-gold/80"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
@@ -108,13 +104,15 @@ export default function Hero() {
 
           <WordReveal
             text="Composed in silence."
-            className="mt-6 font-cormorant text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-light text-cream"
+            className="mt-8 font-cormorant text-cream font-light leading-[0.95]"
+            style={{ fontSize: "clamp(3rem, 8vw, 8rem)", letterSpacing: "-0.03em" }}
             stagger={0.12}
             delay={0.5}
           />
 
           <motion.p
-            className="mt-8 font-cormorant italic text-base md:text-lg text-cream-muted max-w-md"
+            className="mt-10 font-cormorant italic text-cream-muted max-w-md leading-relaxed"
+            style={{ fontSize: "clamp(1rem, 1.5vw, 1.25rem)" }}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 1.2, ease: [0.16, 1, 0.3, 1] }}
@@ -126,7 +124,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 1.5, ease: [0.16, 1, 0.3, 1] }}
-            className="mt-12"
+            className="mt-14"
           >
             <Link href="/#collection">
               <MagneticButton>DISCOVER THE COLLECTION</MagneticButton>
@@ -134,49 +132,55 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* Right: Bottle */}
-        <div className="md:col-span-5 flex items-center justify-center mt-8 md:mt-0">
+        {/* Right: Hero Bottle Image */}
+        <div className="md:col-span-6 lg:col-span-5 flex items-center justify-center mt-8 md:mt-0">
           <motion.div
-            ref={bottleRef}
-            className="relative"
+            className="relative w-full max-w-[500px] aspect-[3/4]"
             style={{
-              rotateY: bottleRotateY,
+              y: bottleY,
+              scale: bottleScale,
+              opacity: bottleOpacity,
               rotateX: mousePos.y * 0.3,
-              perspective: 1200,
+              rotateY: mousePos.x * 0.3,
             }}
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, y: 60 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.5, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
           >
-            {/* Glow Halo */}
+            {/* Glow Halo Behind */}
             <div
               className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bottle-glow"
               style={{
-                width: 350,
-                height: 350,
+                width: "120%",
+                height: "120%",
                 borderRadius: "50%",
                 background:
-                  "radial-gradient(circle, rgba(201, 169, 97, 0.2) 0%, transparent 70%)",
+                  "radial-gradient(circle, rgba(201, 169, 97, 0.15) 0%, transparent 65%)",
                 filter: "blur(60px)",
                 pointerEvents: "none",
               }}
             />
 
-            <div className="relative z-10 scale-75 md:scale-100">
-              <CSSPerfumeBottle animate={true} />
-            </div>
+            <Image
+              src="/images/hero-bottle.png"
+              alt="MAISON NOIR Perfume"
+              fill
+              className="object-contain drop-shadow-2xl relative z-10"
+              priority
+              sizes="(max-width: 768px) 80vw, 40vw"
+            />
           </motion.div>
         </div>
       </div>
 
-      {/* ═══ Scroll Indicator ═══ */}
+      {/* Scroll Indicator */}
       <motion.div
         className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 2.5, duration: 1 }}
       >
-        <span className="font-inter text-[9px] tracking-[0.3em] text-cream-muted/50 uppercase">
+        <span className="font-inter text-[9px] tracking-[0.3em] text-cream-muted/40 uppercase font-light">
           Scroll
         </span>
         <motion.div

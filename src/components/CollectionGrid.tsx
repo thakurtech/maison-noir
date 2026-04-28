@@ -10,17 +10,24 @@ export default function CollectionGrid() {
       {/* Header */}
       <div className="mb-24 md:mb-32 text-center">
         <Reveal>
-          <span className="eyebrow">THE COLLECTION</span>
+          <span className="eyebrow text-gold/80">THE COLLECTION</span>
         </Reveal>
 
         <WordReveal
           text="Three compositions."
-          className="mt-6 font-cormorant text-4xl sm:text-5xl md:text-7xl text-cream font-light text-center"
+          className="mt-8 font-cormorant text-cream font-light text-center justify-center"
+          style={{
+            fontSize: "clamp(2.5rem, 6vw, 5rem)",
+            letterSpacing: "-0.02em",
+          }}
           delay={0.2}
         />
 
         <Reveal delay={0.4}>
-          <p className="mt-6 font-cormorant italic text-cream-muted text-center max-w-lg mx-auto text-base md:text-lg">
+          <p
+            className="mt-8 font-cormorant italic text-cream-muted text-center max-w-md mx-auto leading-relaxed"
+            style={{ fontSize: "clamp(1rem, 1.5vw, 1.2rem)" }}
+          >
             Each made in small batches. Each, a different language.
           </p>
         </Reveal>

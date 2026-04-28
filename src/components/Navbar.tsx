@@ -33,20 +33,28 @@ export default function Navbar() {
           {/* Logo */}
           <Link href="/" className="relative z-10">
             <span
-              className="font-cormorant text-xl tracking-[0.25em] text-cream font-light"
-              style={{ letterSpacing: "0.25em" }}
+              className="font-cormorant text-cream font-light"
+              style={{
+                fontSize: "clamp(0.875rem, 1.2vw, 1.125rem)",
+                letterSpacing: "0.3em",
+              }}
             >
               MAISON NOIR
             </span>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-12">
+          <div className="hidden md:flex items-center gap-14">
             {navLinks.map((link) => (
               <Link
                 key={link.label}
                 href={link.href}
-                className="nav-link font-inter text-[11px] tracking-[0.3em] uppercase text-cream-muted hover:text-cream transition-colors duration-300 font-light"
+                className="nav-link font-inter text-cream-muted/80 hover:text-cream transition-colors duration-300 font-light"
+                style={{
+                  fontSize: "10px",
+                  letterSpacing: "0.3em",
+                  textTransform: "uppercase" as const,
+                }}
               >
                 {link.label}
               </Link>
@@ -59,7 +67,7 @@ export default function Navbar() {
             className="md:hidden relative z-10 text-cream"
             aria-label="Toggle menu"
           >
-            {menuOpen ? <X size={20} /> : <Menu size={20} />}
+            {menuOpen ? <X size={20} strokeWidth={1} /> : <Menu size={20} strokeWidth={1} />}
           </button>
         </div>
       </motion.nav>
@@ -93,13 +101,27 @@ export default function Navbar() {
               <Link
                 href={link.href}
                 onClick={() => setMenuOpen(false)}
-                className="font-cormorant text-5xl text-cream font-light tracking-wide"
+                className="font-cormorant text-cream font-light"
+                style={{
+                  fontSize: "clamp(2.5rem, 8vw, 4rem)",
+                  letterSpacing: "0.05em",
+                }}
               >
                 {link.label}
               </Link>
             </motion.div>
           ))}
         </div>
+
+        {/* Mobile menu footer */}
+        <motion.div
+          className="absolute bottom-12 text-center"
+          initial={{ opacity: 0 }}
+          animate={menuOpen ? { opacity: 1 } : { opacity: 0 }}
+          transition={{ delay: 0.6, duration: 0.8 }}
+        >
+          <span className="eyebrow text-cream-muted/40">A SMALL HOUSE OF PERFUME</span>
+        </motion.div>
       </motion.div>
     </>
   );
