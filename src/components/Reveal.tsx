@@ -70,9 +70,9 @@ export function WordReveal({
   const words = text.split(" ");
 
   return (
-    <motion.div ref={ref} className={className}>
+    <motion.div ref={ref} className={className} style={{ display: "flex", flexWrap: "wrap" }}>
       {words.map((word, i) => (
-        <span key={i} className="inline-block overflow-hidden mr-[0.3em]">
+        <span key={i} className="inline-block overflow-hidden" style={{ marginRight: "0.35em" }}>
           <motion.span
             className="inline-block"
             initial={{ y: "100%", opacity: 0 }}
